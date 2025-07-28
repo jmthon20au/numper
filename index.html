@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مفقط الأرقام - دقيق، سريع، واحترافي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* style.css - التنسيقات والألوان */
+
+        :root {
+            --primary-color: #4CAF50; /* أخضر زاهي */
+            --secondary-color: #FFC107; /* أصفر دافئ */
+            --accent-color: #03A9F4; /* أزرق سماوي */
+            --text-color: #333;
+            --light-text-color: #f4f4f4;
+            --background-color: #e8f5e9; /* خلفية خضراء فاتحة جداً */
+            --card-background: #ffffff;
+            --border-color: #ddd;
+            --shadow: 0 4px 8px rgba(0,0,0,0.1);
+            --dark-bg: #2c2c2c;
+            --dark-card: #3a3a3a;
+            --dark-text: #e0e0e0;
+            --dark-border: #555;
+            --dark-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        /* Dark Mode styles */
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        body.dark-mode header {
+            background-color: #388e3c; /* Darker primary */
+            box-shadow: var(--dark-shadow);
+        }
+
+        body.dark-mode section {
+            background-color: var(--dark-card);
+            box-shadow: var(--dark-shadow);
+        }
+
+        body.dark-mode h2 {
+            color: var(--secondary-color);
+        }
+
+        body.dark-mode .input-group input[type="number"],
+        body.dark-mode .input-group select {
+            background-color: #4a4a4a;
+            color: var(--dark-text);
+            border-color: var(--dark-border);
+        }
+
+        body.dark-mode .input-group input[type="number"]:focus,
+        body.dark-mode .input-group select:focus {
+            box-shadow: 0 0 0 3px rgba(3, 169, 244, 0.4);
+        }
+
+        body.dark-mode .result-box {
+            background-color: #444;
+            border-color: var(--accent-color);
+        }
+
+        body.dark-mode #resultText {
+            color: var(--dark-text);
+        }
+
+        body.dark-mode .feature-item {
+            background-color: var(--dark-card);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        body.dark-mode .feature-item i {
+            color: var(--accent-color);
+        }
+
+        body.dark-mode .feature-item h3 {
+            color: var(--secondary-color);
+        }
+
+        body.dark-mode .feature-item p {
+            color: #ccc;
+        }
+
+        body.dark-mode footer {
+            background-color: #1a1a1a;
+            color: var(--dark-text);
+        }
+
+        body.dark-mode .social-links a {
+            color: var(--dark-text);
+        }
+
+        body.dark-mode #darkModeToggle {
+            background-color: #555;
+            color: var(--light-text-color);
+        }
+
+        body.dark-mode #darkModeToggle:hover {
+            background-color: #666;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            direction: rtl; /* للغة العربية */
+            text-align: right; /* للغة العربية */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative; /* لزر التبديل */
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 3em;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        header i {
+            margin-left: 10px;
+        }
+
+        /* Dark Mode Toggle Button */
+        #darkModeToggle {
+            position: absolute;
+            top: 20px;
+            left: 20px; /* ليكون في الزاوية اليسرى العلوية */
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.2em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-text-color);
+            transition: background-color 0.3s ease;
+        }
+
+        #darkModeToggle:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Main Content Sections */
+        main {
+            padding: 40px 0;
+        }
+
+        section {
+            background-color: var(--card-background);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        /* Input Section */
+        .input-group {
+            display: flex;
+            flex-wrap: wrap; /* للسماح بالعناصر بالنزول لسطر جديد في الشاشات الصغيرة */
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group input[type="number"],
+        .input-group select {
+            flex: 1; /* لتأخذ مساحة متساوية */
+            min-width: 250px; /* للتحكم في عرضها الأدنى */
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1.1em;
+            text-align: right;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input[type="number"]:focus,
+        .input-group select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(3, 169, 244, 0.2);
+            outline: none;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button i {
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background-color: #43a047; /* درجة أغمق من الأخضر */
+            transform: translateY(-2px);
+        }
+
+        #clearButton {
+            background-color: #EF5350; /* أحمر */
+        }
+
+        #clearButton:hover {
+            background-color: #e53935;
+        }
+
+        /* Output Section */
+        .result-box {
+            background-color: #f9f9f9;
+            border: 1px dashed var(--accent-color);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            word-break: break-word; /* لمنع تجاوز النص الطويل */
+            overflow-wrap: break-word; /* لتجاوز النص الطويل */
+        }
+
+        #resultText {
+            font-size: 1.5em;
+            color: var(--text-color);
+            font-weight: bold;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        #copyButton {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            padding: 8px 15px;
+            font-size: 0.9em;
+            background-color: var(--accent-color);
+        }
+
+        #copyButton:hover {
+            background-color: #0288d1;
+        }
+
+        /* Features Section */
+        .features-section {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 40px 0;
+            margin-top: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .features-section h2 {
+            color: var(--light-text-color);
+        }
+
+        .features-section h2::after {
+            background-color: var(--secondary-color);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            background-color: var(--card-background);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: var(--text-color); /* For dark mode contrast */
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-item i {
+            font-size: 3.5em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.5em;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            font-size: 1em;
+            color: #666;
+        }
+
+        body.dark-mode .feature-item p {
+            color: #ccc;
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color); /* خلفية داكنة للفوتر */
+            color: var(--light-text-color);
+            padding: 30px 0;
+            text-align: center;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        footer .social-links a {
+            color: var(--light-text-color);
+            font-size: 1.5em;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        footer .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        footer p {
+            margin-top: 15px;
+        }
+
+        footer .fa-heart {
+            color: #FF5252; /* لون أحمر للقلب */
+            margin: 0 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            .input-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .input-group input,
+            .input-group select {
+                min-width: unset;
+                width: 100%;
+            }
+
+            button {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            #copyButton {
+                position: static; /* إزالة الوضع المطلق في الشاشات الصغيرة */
+                margin-top: 15px;
+                width: auto;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #darkModeToggle {
+                top: 10px;
+                left: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <button id="darkModeToggle" aria-label="تبديل الوضع الليلي"><i class="fas fa-moon"></i></button>
+            <h1><i class="fas fa-money-check-alt"></i> مفقط الأرقام</h1>
+            <p>حوّل الأرقام إلى كلمات بدقة وسهولة</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="input-section">
+                <h2>أدخل الرقم للتفقيط</h2>
+                <div class="input-group">
+                    <input type="number" id="numberInput" placeholder="مثال: 12500.75" step="0.01" min="0">
+                    <select id="currencySelect">
+                        <option value="iraqiDinar">دينار عراقي</option>
+                        <option value="saudiRiyal">ريال سعودي</option>
+                        <option value="egyptianPound">جنيه مصري</option>
+                        <option value="usDollar">دولار أمريكي</option>
+                        <option value="aed">درهم إماراتي</option>
+                        <option value="kwd">دينار كويتي</option>
+                        <option value="qar">ريال قطري</option>
+                        <option value="bhd">دينار بحريني</option>
+                        <option value="omr">ريال عماني</option>
+                        <option value="jod">دينار أردني</option>
+                        <option value="syp">ليرة سورية</option>
+                        </select>
+                </div>
+                <button id="convertButton"><i class="fas fa-sync-alt"></i> فَقِّط الآن</button>
+                <button id="clearButton"><i class="fas fa-trash-alt"></i> مسح</button>
+            </section>
+
+            <section class="output-section">
+                <h2>التفقيط النصي</h2>
+                <div class="result-box">
+                    <p id="resultText">هنا سيظهر التفقيط النصي للرقم المدخل.</p>
+                    <button id="copyButton"><i class="fas fa-copy"></i> انسخ</button>
+                </div>
+            </section>
+
+            <section class="features-section">
+                <div class="container">
+                    <h2>مميزات موقعنا</h2>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>دقة متناهية</h3>
+                            <p>نضمن لك تفقيطًا صحيحًا ودقيقًا للأرقام باللغة العربية.</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <h3>سرعة فائقة</h3>
+                            <p>احصل على التفقيط فورًا بمجرد إدخال الرقم والضغط على الزر.</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-cogs"></i>
+                            <h3>متعدد العملات</h3>
+                            <p>يدعم تفقيط الأرقام لعدة عملات عربية وعالمية.</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h3>متوافق مع الأجهزة</h3>
+                            <p>تصميم متجاوب يعمل بكفاءة على جميع الأجهزة، من الجوال للحاسوب.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+   <footer>
+    <div class="container">
+        <div class="footer-content">
+            <p>&copy; 2025 جميع الحقوق لموقع مفقط الارقام. <i class="fas fa-check-double footer-icon"></i></p>
+            <div class="footer-links">
+                <a href="www.ali-altaee.free.nf" aria-label="موقعنا الإلكتروني"><i class="fas fa-globe footer-icon"></i> موقعي </a>
+        </div>
+        <p class="made-with-love">صنع بكل <i class="fas fa-heart footer-icon"></i> في العراق</p>
+    </div>
+</footer>
+
+<style>
+    /* إضافة أو تعديل التنسيقات في ملف CSS أو داخل وسم <style> */
+
+    footer {
+        background-color: #333; /* خلفية داكنة للفوتر */
+        color: #f4f4f4; /* لون النص الفاتح */
+        padding: 40px 0; /* مسافة داخلية علوية وسفلية */
+        text-align: center;
+        font-size: 0.95em;
+        box-shadow: 0 -4px 8px rgba(0,0,0,0.1); /* ظل علوي خفيف */
+    }
+
+    body.dark-mode footer {
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.4);
+    }
+
+    .footer-content {
+        display: flex;
+        flex-direction: column; /* عمودي افتراضيًا */
+        align-items: center;
+        gap: 15px; /* مسافة بين العناصر */
+        margin-bottom: 20px;
+    }
+
+    .footer-content p {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px; /* مسافة بين النص والأيقونة */
+    }
+
+    .footer-icon {
+        font-size: 1.5em;
+        color: #FFC107; /* لون مميز للأيقونات */
+    }
+
+   
+    body.dark-mode .social-links a {
+        color: #e0e0e0;
+    }
+    body.dark-mode .social-links a:hover {
+        color: #03A9F4; /* لون أزرق عند التحويم في الوضع الداكن */
+    }
+    .footer-links a {
+        font-size: 1.5em;
+        color: gold;
+        text-decoration: none;
+        transition: color 0.3s ease, text-decoration 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px; /* مسافة بين الأيقونة والنص */
+    }
+
+    .footer-links a:hover {
+        color: #03A9F4; /* لون أزرق عند التحويم */
+        text-decoration: underline;
+    }
+
+    body.dark-mode .footer-links a {
+        color: #e0e0e0;
+    }
+    body.dark-mode .footer-links a:hover {
+        color: #FFC107; /* لون أصفر عند التحويم في الوضع الداكن */
+    }
+
+    .separator {
+        color: #FFC107; /* لون مميز للفاصل */
+        font-weight: bold;
+        font-size: 10.2em;
+    }
+
+    .made-with-love {
+        margin-top: 25px; /* مسافة من الأعلى */
+        font-size: 01.5em;
+        opacity: 0.8;
+    }
+
+    .made-with-love .fa-heart {
+        color: #FF5252; /* لون أحمر للقلب */
+        margin: 0 5px;
+        animation: pulse 1.5s infinite; /* تأثير نبض للقلب */
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    /* استجابة للخطوط الكبيرة */
+    @media (min-width: 769px) {
+        .footer-content {
+            flex-direction: row; /* أفقيًا للشاشات الكبيرة */
+            justify-content: space-between; /* توزيع العناصر على الأطراف */
+            align-items: center;
+        }
+        .footer-content p, .social-links, .footer-links {
+            margin: 0; /* إزالة الهوامش الزائدة في الأفقية */
+        }
+    }
+
+    /* استجابة للأجهزة الصغيرة */
+    @media (max-width: 768px) {
+        .social-links {
+            gap: 15px; /* تقليل المسافة في الجوال */
+        }
+        .footer-links {
+            flex-direction: column; /* الروابط عمودية في الجوال */
+            gap: 8px;
+        }
+        .separator {
+            display: none; /* إخفاء الفاصل في الجوال */
+        }
+    }
+</style>
+
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // script.js - منطق التفقيط والتفاعل
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const numberInput = document.getElementById('numberInput');
+            const currencySelect = document.getElementById('currencySelect');
+            const convertButton = document.getElementById('convertButton');
+            const clearButton = document.getElementById('clearButton');
+            const resultText = document.getElementById('resultText');
+            const copyButton = document.getElementById('copyButton');
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const notification = document.getElementById('notification');
+
+            // وظيفة لإظهار الإشعارات
+            function showNotification(message) {
+                notification.textContent = message;
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000); // تختفي بعد 3 ثواني
+            }
+
+            // وظيفة التفقيط (معالجة أعداد أكبر والعملات) - تم تحسينها قليلاً
+            function convertNumberToArabicWords(num) {
+                if (isNaN(num) || num === null || num === '') {
+                    return "الرجاء إدخال رقم صحيح.";
+                }
+
+                let number = parseFloat(num);
+                if (number < 0) {
+                    return "الرجاء إدخال رقم موجب.";
+                }
+                if (number === 0) {
+                    return "صفر";
+                }
+
+                const units = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة'];
+                const teens = ['عشرة', 'أحد عشر', 'اثنا عشر', 'ثلاثة عشر', 'أربعة عشر', 'خمسة عشر', 'ستة عشر', 'سبعة عشر', 'ثمانية عشر', 'تسعة عشر'];
+                const tens = ['', 'عشرة', 'عشرون', 'ثلاثون', 'أربعون', 'خمسون', 'ستون', 'سبعون', 'ثمانون', 'تسعون'];
+                const hundreds = ['', 'مائة', 'مئتان', 'ثلاثمائة', 'أربعمائة', 'خمسمائة', 'ستمائة', 'سبعمائة', 'ثمانمائة', 'تسعمائة'];
+
+                const denominations = [
+                    { name: '', single: '', plural: '' }, // للوحدات
+                    { name: 'ألف', single: 'ألف', plural: 'آلاف' },
+                    { name: 'مليون', single: 'مليون', plural: 'ملايين' },
+                    { name: 'مليار', single: 'مليار', plural: 'مليارات' },
+                    { name: 'تريليون', single: 'تريليون', plural: 'تريليونات' }
+                ];
+
+                function convertThreeDigits(n) {
+                    let s = '';
+                    let h = Math.floor(n / 100);
+                    let t = n % 100;
+
+                    if (h > 0) {
+                        s += hundreds[h];
+                        if (t > 0) s += ' و';
+                    }
+
+                    if (t < 10 && t !== 0) {
+                        s += units[t];
+                    } else if (t >= 10 && t < 20) {
+                        s += teens[t - 10];
+                    } else if (t >= 20) {
+                        let unit = t % 10;
+                        let ten = Math.floor(t / 10);
+                        if (unit !== 0) {
+                            s += units[unit] + ' و';
+                        }
+                        s += tens[ten];
+                    }
+                    return s.trim();
+                }
+
+                function getDenominationName(value, index) {
+                    const denom = denominations[index];
+                    if (value === 0) return '';
+                    if (value === 1 && index > 0) return denom.single;
+                    // قواعد خاصة للغة العربية للعدد 2
+                    if (value === 2 && index > 0) {
+                        if (index === 1) return 'ألفان';
+                        if (index === 2) return 'مليونان';
+                        if (index === 3) return 'ملياران';
+                        if (index === 4) return 'تريليونان';
+                    }
+                    if (value >= 3 && value <= 10) return denom.plural;
+                    return denom.name;
+                }
+
+                let integerPart = Math.floor(number);
+                let decimalPart = Math.round((number - integerPart) * 100); // للحصول على سنتات/فلوس/قروش
+
+                let words = [];
+                let i = 0;
+
+                if (integerPart === 0) {
+                    words.push(units[0]);
+                } else {
+                    let tempIntegerPart = integerPart;
+                    while (tempIntegerPart > 0) {
+                        let chunk = tempIntegerPart % 1000;
+                        if (chunk > 0) {
+                            let chunkWords = convertThreeDigits(chunk);
+                            let denomName = getDenominationName(chunk, i);
+
+                            // معالجة خاصة للواحد والاثنين في المئات والآلاف والملايين
+                            if (chunk === 1 && i > 0) {
+                                words.push(denomName);
+                            } else if (chunk === 2 && i > 0) {
+                                words.push(getDenominationName(2, i));
+                            } else {
+                                words.push(chunkWords + (denomName ? ' ' + denomName : ''));
+                            }
+                        }
+                        tempIntegerPart = Math.floor(tempIntegerPart / 1000);
+                        i++;
+                    }
+                }
+
+                let finalWords = words.reverse().filter(w => w.trim() !== '').join(' و'); // فلترة الفراغات الزائدة
+
+                // تحديد العملة والجزء العشري
+                let currencyMapping = {
+                    iraqiDinar: { main: 'دينار', mainPlural: 'دنانير', fractional: 'فلس', fractionalPlural: 'فلس', mainSingular: 'دينار عراقي', mainDual: 'ديناران عراقيان' },
+                    saudiRiyal: { main: 'ريال', mainPlural: 'ريالات', fractional: 'هللة', fractionalPlural: 'هللة', mainSingular: 'ريال سعودي', mainDual: 'ريالان سعوديان' },
+                    egyptianPound: { main: 'جنيه', mainPlural: 'جنيهات', fractional: 'قرش', fractionalPlural: 'قرش', mainSingular: 'جنيه مصري', mainDual: 'جنيهان مصريان' },
+                    usDollar: { main: 'دولار', mainPlural: 'دولارات', fractional: 'سنت', fractionalPlural: 'سنت', mainSingular: 'دولار أمريكي', mainDual: 'دولاران أمريكيان' },
+                    aed: { main: 'درهم إماراتي', mainPlural: 'دراهم إماراتية', fractional: 'فلس', fractionalPlural: 'فلس', mainSingular: 'درهم إماراتي', mainDual: 'درهمان إماراتيان' },
+                    kwd: { main: 'دينار كويتي', mainPlural: 'دنانير كويتية', fractional: 'فلس', fractionalPlural: 'فلس', mainSingular: 'دينار كويتي', mainDual: 'ديناران كويتيان' },
+                    qar: { main: 'ريال قطري', mainPlural: 'ريالات قطرية', fractional: 'درهم', fractionalPlural: 'دراهم', mainSingular: 'ريال قطري', mainDual: 'ريالان قطريان' },
+                    bhd: { main: 'دينار بحريني', mainPlural: 'دنانير بحرينية', fractional: 'فلس', fractionalPlural: 'فلس', mainSingular: 'دينار بحريني', mainDual: 'ديناران بحرينيان' },
+                    omr: { main: 'ريال عماني', mainPlural: 'ريالات عمانية', fractional: 'بيسة', fractionalPlural: 'بيسة', mainSingular: 'ريال عماني', mainDual: 'ريالان عمانيان' },
+                    jod: { main: 'دينار أردني', mainPlural: 'دنانير أردنية', fractional: 'قرش', fractionalPlural: 'قرش', mainSingular: 'دينار أردني', mainDual: 'ديناران أردنيان' },
+                    syp: { main: 'ليرة سورية', mainPlural: 'ليرات سورية', fractional: 'قرش', fractionalPlural: 'قرش', mainSingular: 'ليرة سورية', mainDual: 'ليرتان سوريتان' }
+                    // أضف المزيد هنا
+                };
+
+                let currentCurrency = currencyMapping[currencySelect.value];
+                let currencyMainName = '';
+                let currencyFractionalName = '';
+
+                if (currentCurrency) {
+                    if (integerPart === 1) {
+                        currencyMainName = currentCurrency.mainSingular || currentCurrency.main;
+                    } else if (integerPart === 2) {
+                        currencyMainName = currentCurrency.mainDual || currentCurrency.main + 'ان';
+                    } else if (integerPart >= 3 && integerPart <= 10) {
+                        currencyMainName = currentCurrency.mainPlural || currentCurrency.main;
+                    } else {
+                        currencyMainName = currentCurrency.main + 'اً'; // تنوين النصب للعدد الأكبر
+                    }
+
+                    if (decimalPart === 1) {
+                        currencyFractionalName = currentCurrency.fractional || currentCurrency.fractional;
+                    } else if (decimalPart === 2) {
+                        currencyFractionalName = currentCurrency.fractional + 'ان' || currentCurrency.fractional;
+                    }
+                    else if (decimalPart >= 3 && decimalPart <= 10) {
+                        currencyFractionalName = currentCurrency.fractionalPlural || currentCurrency.fractional;
+                    }
+                     else {
+                        currencyFractionalName = currentCurrency.fractional + 'اً';
+                    }
+                }
+
+                let fullText = finalWords.trim();
+                if (integerPart > 0) {
+                    fullText += ' ' + currencyMainName;
+                } else if (integerPart === 0 && decimalPart === 0) {
+                    fullText = "صفر " + currencyMainName; // للتأكد من ظهور العملة مع الصفر
+                }
+
+                if (decimalPart > 0) {
+                    let decimalWords = convertThreeDigits(decimalPart);
+                    // نتجنب "صفر" في الجزء العشري إذا كان العدد أقل من 10
+                    if (decimalPart > 0) {
+                        fullText += ' و' + decimalWords + ' ' + currencyFractionalName;
+                    }
+                }
+                
+                return fullText + ' فقط لا غير';
+            }
+
+
+            convertButton.addEventListener('click', () => {
+                const number = numberInput.value;
+                const result = convertNumberToArabicWords(number);
+                resultText.textContent = result;
+                showNotification('تم التفقيط بنجاح!');
+            });
+
+            clearButton.addEventListener('click', () => {
+                numberInput.value = '';
+                resultText.textContent = 'هنا سيظهر التفقيط النصي للرقم المدخل.';
+                showNotification('تم مسح الحقول.');
+            });
+
+            copyButton.addEventListener('click', () => {
+                const textToCopy = resultText.textContent;
+                if (textToCopy === 'هنا سيظهر التفقيط النصي للرقم المدخل.' || textToCopy.includes('الرجاء إدخال رقم')) {
+                    showNotification('لا يوجد نص لنسخه.');
+                    return;
+                }
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showNotification('تم نسخ النص بنجاح!');
+                }).catch(err => {
+                    console.error('فشل النسخ: ', err);
+                    showNotification('فشل نسخ النص. يرجى المحاولة مرة أخرى.');
+                });
+            });
+
+            // Dark Mode Logic
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                if (isDarkMode) {
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    darkModeToggle.setAttribute('aria-label', 'تبديل الوضع النهاري');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    darkModeToggle.setAttribute('aria-label', 'تبديل الوضع الليلي');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                darkModeToggle.setAttribute('aria-label', 'تبديل الوضع النهاري');
+            }
+        });
+    </script>
+</body>
+</html>
